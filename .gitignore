@@ -1,0 +1,8 @@
+.Rhistory
+*.rmd
+*.rproj
+
+# Ignore Data Files
+*.csv
+*.txt
+.Rproj.user
