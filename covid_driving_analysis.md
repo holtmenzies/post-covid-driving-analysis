@@ -280,7 +280,8 @@ all_years %>%
   mutate(outlier = ifelse(crash_rate > 1.7 * mean(crash_rate), City, as.numeric(NA))) %>% 
   ggplot(aes(y = crash_rate, x = factor(Year))) +
   geom_boxplot() +
-  labs(y = "Crash Rate / 1000 VMT", x = "Year") +
+  labs(title = "Frequency of Crashes 2019 vs. 2020", y = "Crash Rate / 1000 VMT", 
+       x = "Year") +
   geom_text_repel(aes(label = outlier), na.rm = T)
 ```
 
@@ -535,19 +536,26 @@ observations.
 
 # Analysis
 
-``` r
-#paired_rate <- paired_rate %>% 
-#  inner_join(subset(all_years, all_years$Year == 2020)[c("City", "POP")], by="City")
-```
-
 ## Paired t-test
 
 A paired t-test will be used to evaluate the plausibility of the
 hypothesis that driver competence decreased between 2019 and 2020.
 
 ``` r
-#t.test(paired_rate$`2020`, paired_rate$`2019`, paired = T)
+t.test(paired_rate$`2020`, paired_rate$`2019`, paired = T)
 ```
+
+    ## 
+    ##  Paired t-test
+    ## 
+    ## data:  paired_rate$`2020` and paired_rate$`2019`
+    ## t = 6.0408, df = 17, p-value = 1.323e-05
+    ## alternative hypothesis: true mean difference is not equal to 0
+    ## 95 percent confidence interval:
+    ##  0.0005918221 0.0012271015
+    ## sample estimates:
+    ## mean difference 
+    ##    0.0009094618
 
 The difference in mean sample crash rates is 0.0009 crashes / 1000 VMT
 with a 95% confidence interval between 0.0006 and 0.0012. A p-value of
